@@ -6,40 +6,40 @@ interface Inputs {
 }
 
 function Form() {
-
-    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         console.log(data);
+        reset();
     };
 
     return (
         <form className="custom-form" onSubmit={handleSubmit(onSubmit)}>
-
-            <h1 className="custom-title">Add new to do</h1>
-
-            <div>
-                <label className="custom-label">Task Name :</label>
-                {errors.name && <p className="custom-alert " >{errors.name.message}</p>}
-            </div>
-
-            <input className="custom-input"
-                type="text"
-                placeholder="Placeholder..."
-                {...register("name", { required: "* Mandatory name" })} />
+            <h1 className="custom-formTitle">Add new to do</h1>
 
             <div>
-                <label className="custom-label">Task Description:</label>
-                {errors.description && <p className="custom-alert">{errors.description.message}</p>}
+                <label className="custom-formLabel">Task Name :</label>
+                {errors.name && <p className="custom-formAlert">{errors.name.message}</p>}
             </div>
-
-            <input className="custom-input"
+            <input
+                className="custom-formInput"
                 type="text"
                 placeholder="Placeholder..."
-                {...register("description", { required: "* mandatory description" })} />
+                {...register("name", { required: "* Mandatory" })}
+            />
 
-            <button className="custom-button" type="submit">Create Todo</button>
-            
+            <div>
+                <label className="custom-formLabel">Task Description:</label>
+                {errors.description && <p className="custom-formAlert">{errors.description.message}</p>}
+            </div>
+            <input
+                className="custom-formInput"
+                type="text"
+                placeholder="Placeholder..."
+                {...register("description", { required: "* mandatory" })}
+            />
+
+            <button className="custom-formButton" type="submit">Create Todo</button>
         </form>
     );
 }

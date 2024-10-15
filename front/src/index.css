@@ -2,36 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #333333;
+}
+
 @layer components {
 
-  /*formulario*/
-  .custom-input {
-    @apply h-[42px] mt-2 rounded-[10px] bg-TertiaryColor placeholder:text-secondaryTextColor placeholder:text-sm text-white pl-4;
-  }
-
-  .custom-button {
-    @apply h-[42px] rounded-[10px] text-sm mt-5 text-primaryColor bg-white font-medium;
-  }
-
+  /*Formulario*/
   .custom-form {
-    @apply w-[340px] bg-secondaryColor h-[311px] rounded-[10px] flex flex-col flex-1 px-[1.5rem] py-[1.5rem];
+    @apply max-w-[340px] bg-secondaryColor h-[308px] rounded-[10px] flex flex-col flex-1 px-[1.5rem] py-[1.5rem];
   }
 
-  .custom-title {
+  .custom-formTitle {
     @apply text-center text-white font-semibold text-[20px] h-[30px];
   }
 
-  .custom-label {
+  .custom-formLabel {
     @apply text-white text-xs mb-1 mt-3 mr-2;
   }
 
-  .custom-alert {
+  .custom-formAlert {
     @apply text-textAlertColor text-xs inline;
   }
 
-  /*contador*/
+  .custom-formInput {
+    @apply h-[42px] mt-2 rounded-[10px] bg-TertiaryColor placeholder:text-secondaryTextColor placeholder:text-sm text-white pl-4;
+  }
+
+  .custom-formButton {
+    @apply h-[42px] rounded-[10px] text-sm mt-5 text-primaryColor bg-white font-medium;
+  }
+
+  /*Contador*/
   .custom-count {
-    @apply w-[340px] bg-secondaryColor rounded-[10px] text-[20px] text-center text-white pt-4;
+    @apply max-w-[340px] bg-secondaryColor rounded-[10px] text-[20px] text-center text-white pt-4;
   }
 
   /*grade*/
@@ -43,24 +47,106 @@
     @apply text-white font-semibold text-[20px] h-[50px];
   }
 
-  .custom-grid {
-    @apply relative w-full flex flex-wrap bg-TertiaryColor p-4 rounded-[10px]
+  .custom-frameSection {
+    @apply no-scrollbar overflow-y-auto overflow-x-hidden h-[calc(100%-2rem)] px-2 py-2 pl-0
   }
 
-  .custom-completed {
-    @apply absolute -top-[17px] -right-[19px] transform translate-x-1/2 translate-y-1/2
+  .custom-grid {
+    @apply relative w-full flex flex-wrap bg-TertiaryColor p-4 rounded-[10px] mb-[10px];
+  }
+
+  .custom-buttonCompleted {
+    @apply absolute -top-[17px] -right-[19px] transform translate-x-1/2 translate-y-1/2;
+  }
+
+  .custom-completedIcon {
+    @apply max-w-[33%] max-h-[33%];
+  }
+
+  .custom-taskCard {
+    @apply w-full md:w-[65%] break-words;
+  }
+
+  .custom-taskName {
+    @apply text-white font-semibold;
+  }
+
+  .custom-taskDescription {
+    @apply text-[12px] text-secondaryTextColor;
+  }
+
+  .custom-dateTime {
+    @apply text-[12px] absolute text-secondaryTextColor right-0 bottom-0;
   }
 
   @layer components {
-    .custom-height {
-      @apply h-auto w-full md:w-[30%] relative flex;
+    .custom-cardDateTime {
+      @apply h-auto w-full md:w-[35%] relative flex;
     }
 
     @media (max-width: 768px) {
-      .custom-height {
+      .custom-cardDateTime {
         height: 30px;
       }
     }
+  }
+
+  @layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+
+  /*Layout principal*/
+  .custom-mainLayout {
+    @apply container mx-auto max-w-[1077px] px-4 mt-[8vh];
+  }
+
+  .custom-headerLayout {
+    @apply mx-auto max-w-[74vw];
+  }
+
+  .custom-TitleLayout {
+    @apply text-[56px] text-white font-thin;
+  }
+
+  .custom-descriptionLayout {
+    @apply text-[16px] text-secondaryTextColor mt-2 mb-10;
+  }
+
+  .custom-gridLayout {
+    @apply mx-auto max-w-[74vw] grid grid-cols-[67%_32%] gap-3;
+  }
+
+  .custom-quoteText {
+    @apply text-[12px] text-secondaryTextColor mt-2 mb-2;
+  }
+
+  .custom-quoteAuthor {
+    @apply text-[12px] text-secondaryTextColor font-semibold;
+  }
+
+  .custom-footerLayout {
+    @apply mx-auto max-w-[74vw];
+  }
+
+  .custom-footerCredits {
+    @apply text-[16px] text-secondaryTextColor mt-2 mb-6 absolute bottom-0;
+  }
+}
+
+@media (max-width: 1099px) {
+  .custom-frame {
+    @apply w-[auto];
+  }
+
+  .custom-gridLayout {
+    grid-template-columns: 1fr;
   }
 
 }

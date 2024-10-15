@@ -1,13 +1,9 @@
-import Count from './components/count/Count'
-import Form from './components/form/Form'
-import Grid from './components/grid/Grid'
+import MainLayout from './Layout/MainLayout'
 
 function App() {
   return (
     <div>
-      <Grid/>
-      <Count/>
-      <Form/>
+      <MainLayout />
     </div>
   )
 }

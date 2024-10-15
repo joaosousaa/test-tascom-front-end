@@ -13,8 +13,8 @@ export default {
         'textAlertColor': '#ffdada',
         'secondaryTextColor': '#b5b5b5',
         'primaryColor': '#333333',
-        'secondaryColor': '#3d3d3d', 
-        'TertiaryColor': '#474747',
+        'secondaryColor': 'rgb(69 69 69)', 
+        'TertiaryColor': 'rgb(83 83 83)',
       },
       
     },
