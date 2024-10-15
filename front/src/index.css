@@ -76,7 +76,7 @@ body {
   }
 
   .custom-dateTime {
-    @apply text-[12px] absolute text-secondaryTextColor right-0 bottom-0;
+    @apply text-[12px] absolute text-secondaryTextColor right-0 bottom-0 whitespace-nowrap;
   }
 
   @layer components {
@@ -142,11 +142,32 @@ body {
 
 @media (max-width: 1099px) {
   .custom-frame {
-    @apply w-[auto];
+    @apply max-w-full;
+  }
+
+  .custom-count {
+    @apply max-w-full;
+  }
+
+  .custom-form {
+    @apply max-w-full;
   }
 
   .custom-gridLayout {
     grid-template-columns: 1fr;
   }
 
+  .custom-footerCredits {
+    @apply relative mt-[5.5rem];
+  }
+}
+
+@media (max-width: 600px) {
+  .custom-gridLayout {
+    @apply max-w-full;
+  }
+
+  .custom-headerLayout {
+    @apply max-w-full;
+  }
 }
