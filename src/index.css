@@ -33,6 +33,10 @@ body {
     @apply h-[42px] rounded-[10px] text-sm mt-5 text-primaryColor bg-white font-medium;
   }
 
+  .custom-formMessage {
+    @apply text-secondaryTextColor p-1 text-xs inline;
+  }
+
   /*Contador*/
   .custom-count {
     @apply max-w-[340px] bg-secondaryColor rounded-[10px] text-[20px] text-center text-white pt-4;
@@ -47,19 +51,26 @@ body {
     @apply text-white font-semibold text-[20px] h-[50px];
   }
 
-  .custom-frameSection {
+  .custom-gridSection {
     @apply no-scrollbar overflow-y-auto overflow-x-hidden h-[calc(100%-2rem)] px-2 py-2 pl-0
   }
 
-  .custom-grid {
+  .custom-list {
     @apply relative w-full flex flex-wrap bg-TertiaryColor p-4 rounded-[10px] mb-[10px];
   }
 
   .custom-buttonCompleted {
+    @apply absolute -top-[17px] right-[10px] transform translate-x-1/2 translate-y-1/2;
+  }
+  .custom-buttonCanceled {
     @apply absolute -top-[17px] -right-[19px] transform translate-x-1/2 translate-y-1/2;
   }
 
   .custom-completedIcon {
+    @apply max-w-[33%] max-h-[33%];
+  }
+
+  .custom-canceledIcon {
     @apply max-w-[33%] max-h-[33%];
   }
 
