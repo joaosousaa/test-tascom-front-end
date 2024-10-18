@@ -33,11 +33,11 @@ const TaskCounter = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='message'>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className='message'>Error: {error}</div>;
   }
 
   return (

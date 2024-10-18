@@ -183,4 +183,9 @@ body {
   .custom-headerLayout {
     @apply max-w-full;
   }
+
+  .custom-footerLayout {
+    @apply  max-w-full;
+  }
+
 }
