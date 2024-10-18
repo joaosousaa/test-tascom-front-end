@@ -1,9 +1,34 @@
-import Count from '../components/count/Count'
-import Form from '../components/form/Form'
-import Grid from '../components/grid/Grid'
+import { useEffect, useState } from 'react';
+import Count from '../components/count/Count';
+import Form from '../components/form/Form';
+import Grid from '../components/grid/Grid';
 import { AiFillHeart } from 'react-icons/ai';
+import axios from 'axios';
 
 function MainLayout() {
+  const [chuckNorrisQuote, setChuckNorrisQuote] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  const fetchChuckNorrisQuote = async () => {
+    try {
+      const response = await axios.get('https://api.chucknorris.io/jokes/random');
+      setChuckNorrisQuote(response.data.value);
+    } catch (error) {
+      console.error('Erro ao carregar a piada:', error);
+      setChuckNorrisQuote('Could not load Chuck Norris quote.'); 
+    } finally {
+      setLoading(false); 
+    }
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchChuckNorrisQuote();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <main className='custom-mainLayout'>
       <header className='custom-headerLayout'>
@@ -22,9 +47,16 @@ function MainLayout() {
         </div>
 
         <div>
-          <p className='custom-quoteText'>“Chuck Norris Phrase”</p>
-          <p className='custom-quoteAuthor'>By Chuck Norris.</p>
+          {loading ? (
+            <p className='custom-quoteText'>Loading Chuck Norris quote...</p>
+          ) : (
+            <>
+              <p className='custom-quoteText'>“{chuckNorrisQuote}”</p>
+              <p className='custom-quoteAuthor'>By Chuck Norris.</p>
+            </>
+          )}
         </div>
+        
       </section>
 
       <footer className='custom-footerLayout'>

@@ -129,7 +129,9 @@ body {
   .custom-descriptionLayout {
     @apply text-[16px] text-secondaryTextColor mt-2 mb-10;
   }
-
+.message{
+  @apply text-secondaryTextColor;
+}
   .custom-gridLayout {
     @apply mx-auto max-w-[74vw] grid grid-cols-[67%_32%] gap-3;
   }

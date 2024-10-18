@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { URL } from '../../utils/constants'
 const TaskCounter = () => {
   const [completedTasks, setCompletedTasks] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -8,7 +8,7 @@ const TaskCounter = () => {
 
   const fetchCompletedTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:3333/api/todo/count');
+      const response = await axios.get(`${URL}/api/todo/count`);
       setCompletedTasks(response.data.data);
       setIsLoading(false);
       setError(null);

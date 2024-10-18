@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import axios from 'axios';
-
 interface Task {
   id: string;
   title: string;
@@ -12,10 +11,9 @@ interface Task {
   created_at: string;
   status: 'CREATED' | 'COMPLETED' | 'CANCELED';
 }
-
+import { URL } from '../../utils/constants'
 const fetchTasks = async (): Promise<Task[]> => {
-  const response = await axios.get('http://localhost:3333/api/todo/show');
-  console.log('Dados da API:', response.data.data);
+  const response = await axios.get(`${URL}/api/todo/show`);
   return response.data.data;
 };
 
@@ -32,24 +30,23 @@ const Grid = () => {
       setError(err);
     }
     setIsLoading(false);
-
-    setTimeout(pollTasks, 2000);
   };
 
   useEffect(() => {
-    pollTasks();
+    const intervalId = setInterval(() => {
+      pollTasks();
+    }, 2000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (isLoading) {
+    return <div className='message'>Loading...</div>;
   }
 
   if (!Array.isArray(tasks)) {
-    return <div>No tasks available or data format is incorrect.</div>;
+    return <div className='message'>No tasks found.</div>;
   }
 
   const formatDateTime = (dateString: string) => {
@@ -60,7 +57,7 @@ const Grid = () => {
 
   const updateTask = async (taskId: string, newStatus: 'COMPLETED' | 'CANCELED') => {
     try {
-      const response = await axios.put(`http://localhost:3333/api/todo/edit/${taskId}/${newStatus}`);
+      const response = await axios.put(`${URL}/api/todo/edit/${taskId}/${newStatus}`);
       console.log(response.data);
       const updatedTasks = tasks.map(task =>
         task.id === taskId ? { ...task, status: newStatus } : task
@@ -71,36 +68,38 @@ const Grid = () => {
     }
   };
 
-
   return (
     <main className="custom-frame">
-      <h1 className="custom-frameTitle">To do</h1>
 
-      <section className='custom-gridSection'>
-        {tasks.map((task) => (
-          <div key={task.id} className="custom-list">
-            <div className="custom-taskCard">
-              <p className='custom-taskName'>{task.title}</p>
-              <p className='custom-taskDescription'>{task.description}</p>
+      {tasks.length > 0 ? <>
+        <h1 className="custom-frameTitle">To do</h1>
+
+        <section className='custom-gridSection'>
+          {tasks.map((task) => (
+            <div key={task.id} className="custom-list">
+              <div className="custom-taskCard">
+                <p className='custom-taskName'>{task.title}</p>
+                <p className='custom-taskDescription'>{task.description}</p>
+              </div>
+              <div className="custom-cardDateTime">
+                <p className='custom-dateTime'>{formatDateTime(task.created_at)}</p>
+              </div>
+              <button
+                className="custom-buttonCompleted"
+                onClick={() => updateTask(task.id, 'COMPLETED')}
+              >
+                <img src={check} alt="button to complete task" className='custom-completedIcon' />
+              </button>
+              <button
+                className="custom-buttonCanceled"
+                onClick={() => updateTask(task.id, 'CANCELED')}
+              >
+                <img src={vector} alt="button to cancel task" className='custom-canceledIcon' />
+              </button>
             </div>
-            <div className="custom-cardDateTime">
-              <p className='custom-dateTime'>{formatDateTime(task.created_at)}</p>
-            </div>
-            <button
-              className="custom-buttonCompleted"
-              onClick={() => updateTask(task.id, 'COMPLETED')}
-            >
-              <img src={check} alt="button to complete task" className='custom-completedIcon' />
-            </button>
-            <button
-              className="custom-buttonCanceled"
-              onClick={() => updateTask(task.id, 'CANCELED')}
-            >
-              <img src={vector} alt="button to cancel task" className='custom-canceledIcon' />
-            </button>
-          </div>
-        ))}
-      </section>
+          ))}
+        </section></> : <><div className='message'>No tasks found.</div> </>}
+
     </main>
   );
 };

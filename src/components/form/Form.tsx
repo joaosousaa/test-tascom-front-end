@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import { URL } from '../../utils/constants'
 interface Inputs {
     title: string;
     description: string;
@@ -13,7 +13,7 @@ function Form() {
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         try {
-            const response = await axios.post('http://localhost:3333/api/todo/create', data);
+            const response = await axios.post(`${URL}/api/todo/create`, data);
             console.log(response.data);
             setMessage("Task created successfully!");
             reset();
@@ -22,7 +22,6 @@ function Form() {
             setMessage("Error: Could not create task.");
         }
     };
-
 
     useEffect(() => {
         if (message) {
