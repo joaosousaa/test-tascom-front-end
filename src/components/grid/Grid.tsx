@@ -16,7 +16,10 @@ interface Task {
 
 const fetchTasks = async (): Promise<Task[]> => {
   const response = await axios.get(`${URL}/api/todo/show`);
-  return response.data.data; 
+  if (response.data && Array.isArray(response.data.data)) {
+    return response.data.data; 
+  }
+  return []; // Retorna um array vazio se a estrutura não for a esperada
 };
 
 const Grid = () => {
@@ -72,7 +75,7 @@ const Grid = () => {
 
   return (
     <main className="custom-frame">
-      {tasks.length > 0 ? (
+      {tasks && tasks.length > 0 ? (
         <>
           <h1 className="custom-frameTitle">To do</h1>
           <section className='custom-gridSection'>
